@@ -15,32 +15,50 @@ import {
   ModalOverlay,
   Textarea,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 
 import BeerImage from "../../assets/beerimage.png";
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import { MyBeerType } from "../../types";
+import { AddBeerToLocalStorage } from "../../functions";
 
 interface props {
   isOpen: boolean;
   onClose: () => void;
+  beerData: Array<MyBeerType>;
+  setBeerData: React.Dispatch<React.SetStateAction<Array<MyBeerType>>>;
 }
 
-interface Inputs {
-  beerName: string;
-  genre: string;
-  description: string;
-}
-
-export const AddBeerModal: React.FC<props> = ({ isOpen, onClose }) => {
+export const AddBeerModal: React.FC<props> = ({
+  isOpen,
+  onClose,
+  beerData,
+  setBeerData,
+}) => {
+  const toast = useToast();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm<Inputs>();
+  } = useForm<MyBeerType>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<MyBeerType> = (data) => {
+    AddBeerToLocalStorage(beerData, data);
+    setBeerData((prev) => [...prev, data]);
+    reset();
+    onClose();
+    toast({
+      title: "Beer Added Successfully",
+      description: "Your beer is successfully added to list",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+  };
 
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.300");
 

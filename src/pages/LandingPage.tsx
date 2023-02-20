@@ -6,9 +6,12 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AddBeerModal, ThemeSwitch } from "../components";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { MyBeerType } from "../types";
+import { getStoredMyBeers } from "../functions";
+import { MyBeerPage } from "./MyBeerPage";
 
 interface props {}
 
@@ -19,13 +22,29 @@ export const LandingPage: React.FC<props> = () => {
 
   const borderColor = useColorModeValue("blue", "white");
 
+  const [myBeerData, setMyBeerData] = useState<Array<MyBeerType>>([]);
+
+  const refetchMyBeerData = () => {
+    let beerList = getStoredMyBeers();
+    setMyBeerData(beerList);
+  };
+
+  useEffect(() => {
+    refetchMyBeerData();
+  }, []);
+
   return (
     <Box>
       <Box width={"60%"} margin="0 auto">
         <Flex justify={"flex-end"} mt={5} mb={5}>
           <ThemeSwitch />
         </Flex>
-        <AddBeerModal isOpen={isOpen} onClose={onClose} />
+        <AddBeerModal
+          isOpen={isOpen}
+          onClose={onClose}
+          beerData={myBeerData}
+          setBeerData={setMyBeerData}
+        />
         <Tabs onChange={(index) => setTabIndex(index)}>
           <Flex justify={"space-between"}>
             <TabList flex={1}>
@@ -49,8 +68,8 @@ export const LandingPage: React.FC<props> = () => {
             <TabPanel>
               <p>one!</p>
             </TabPanel>
-            <TabPanel>
-              <p>two!</p>
+            <TabPanel pr={0} pl={0}>
+              <MyBeerPage myBeerList={myBeerData} onOpen={onOpen} />
             </TabPanel>
           </TabPanels>
         </Tabs>
