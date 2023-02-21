@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useAllBeer } from "../apis";
 import { BeerListGrid } from "../components";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { convertIngridentToString } from "../functions";
 
 interface props {}
 
@@ -26,6 +27,7 @@ export const AllBeerPage: React.FC<props> = () => {
                   description={item.description}
                   genre={item.tagline}
                   image={item.image_url}
+                  ingredients={convertIngridentToString(item.ingredients)}
                 />
               );
             })}

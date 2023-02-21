@@ -17,6 +17,7 @@ export const BeerListGrid: React.FC<MyBeerType> = ({
   description,
   genre,
   image,
+  ingredients,
 }) => {
   let borderColor = useColorModeValue("gray.100", "gray.900");
   let hoverColor = useColorModeValue("blue.100", "blue.700");
@@ -33,7 +34,7 @@ export const BeerListGrid: React.FC<MyBeerType> = ({
       width={["100%", "100%", "100%", "100%", "49.5%"]}
     >
       <Flex width={[70, 100]}>
-        <Tooltip label={description} hasArrow placement="top">
+        <Tooltip label={ingredients ?? description} hasArrow placement="top">
           <Image
             src={image ?? BeerImage}
             boxSize={[70, 100]}
