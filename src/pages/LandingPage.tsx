@@ -35,46 +35,44 @@ export const LandingPage: React.FC<props> = () => {
   }, []);
 
   return (
-    <Box>
-      <Box width={"60%"} margin="0 auto">
-        <Flex justify={"flex-end"} mt={5} mb={5}>
-          <ThemeSwitch />
+    <Box width={["98%", "70%", "60%"]} margin="0 auto">
+      <Flex justify={"flex-end"} mt={5} mb={5}>
+        <ThemeSwitch />
+      </Flex>
+      <AddBeerModal
+        isOpen={isOpen}
+        onClose={onClose}
+        beerData={myBeerData}
+        setBeerData={setMyBeerData}
+      />
+      <Tabs onChange={(index) => setTabIndex(index)}>
+        <Flex justify={"space-between"}>
+          <TabList flex={1}>
+            <Tab _selected={{ fontWeight: "bold", borderColor: borderColor }}>
+              All Beers
+            </Tab>
+            <Tab _selected={{ fontWeight: "bold", borderColor: borderColor }}>
+              My Beers
+            </Tab>
+          </TabList>
+          {tabIndex === 1 && (
+            <Flex alignItems={"center"}>
+              <Button size="sm" colorScheme={"blue"} onClick={onOpen}>
+                Add a new beer
+              </Button>
+            </Flex>
+          )}
         </Flex>
-        <AddBeerModal
-          isOpen={isOpen}
-          onClose={onClose}
-          beerData={myBeerData}
-          setBeerData={setMyBeerData}
-        />
-        <Tabs onChange={(index) => setTabIndex(index)}>
-          <Flex justify={"space-between"}>
-            <TabList flex={1}>
-              <Tab _selected={{ fontWeight: "bold", borderColor: borderColor }}>
-                All Beers
-              </Tab>
-              <Tab _selected={{ fontWeight: "bold", borderColor: borderColor }}>
-                My Beers
-              </Tab>
-            </TabList>
-            {tabIndex === 1 && (
-              <Flex alignItems={"center"}>
-                <Button size="sm" colorScheme={"blue"} onClick={onOpen}>
-                  Add a new beer
-                </Button>
-              </Flex>
-            )}
-          </Flex>
 
-          <TabPanels>
-            <TabPanel>
-              <AllBeerPage />
-            </TabPanel>
-            <TabPanel pr={0} pl={0}>
-              <MyBeerPage myBeerList={myBeerData} onOpen={onOpen} />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </Box>
+        <TabPanels>
+          <TabPanel>
+            <AllBeerPage />
+          </TabPanel>
+          <TabPanel>
+            <MyBeerPage myBeerList={myBeerData} onOpen={onOpen} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Box>
   );
 };

@@ -23,19 +23,20 @@ export const BeerListGrid: React.FC<MyBeerType> = ({
   return (
     <Flex
       boxShadow="lg"
-      p="6"
+      p={[3, 6]}
       mt={5}
       mb={5}
       borderWidth={2}
       borderColor={borderColor}
       borderRadius={5}
       _hover={{ bg: hoverColor }}
+      width={["100%", "100%", "100%", "100%", "49.5%"]}
     >
-      <Flex width={100}>
+      <Flex width={[70, 100]}>
         <Tooltip label={description} hasArrow placement="top">
           <Image
             src={image ?? BeerImage}
-            boxSize={100}
+            boxSize={[70, 100]}
             fit={"contain"}
             mr={5}
           />
@@ -48,7 +49,9 @@ export const BeerListGrid: React.FC<MyBeerType> = ({
         <Text color={"yellow.500"} as={"b"} fontSize={"sm"} mt={2}>
           {genre}
         </Text>
-        <Text mt={2}>{description}</Text>
+        <Text mt={2} fontSize="sm" textAlign={"justify"}>
+          {description}
+        </Text>
       </Flex>
     </Flex>
   );

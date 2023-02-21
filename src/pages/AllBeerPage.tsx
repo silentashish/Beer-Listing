@@ -12,22 +12,25 @@ export const AllBeerPage: React.FC<props> = () => {
   const showMoreColor = useColorModeValue("green.800", "green.200");
 
   return (
-    <Box>
-      {data?.data &&
-        data.data.pages
-          .reduce((acc: Array<any>, item) => {
-            return [...acc, ...item.data];
-          }, [])
-          .map((item: any) => {
-            return (
-              <BeerListGrid
-                beerName={item.name}
-                description={item.description}
-                genre={item.tagline}
-                image={item.image_url}
-              />
-            );
-          })}
+    <>
+      <Flex flexWrap="wrap" columnGap={"1%"}>
+        {data?.data &&
+          data.data.pages
+            .reduce((acc: Array<any>, item) => {
+              return [...acc, ...item.data];
+            }, [])
+            .map((item: any) => {
+              return (
+                <BeerListGrid
+                  beerName={item.name}
+                  description={item.description}
+                  genre={item.tagline}
+                  image={item.image_url}
+                />
+              );
+            })}
+      </Flex>
+
       {data?.isLoading || data?.isFetching ? (
         <Flex width={"100%"} height="100%" justify={"center"} margin={10}>
           <Spinner size={"xl"} />
@@ -47,6 +50,6 @@ export const AllBeerPage: React.FC<props> = () => {
           <ChevronDownIcon color={showMoreColor} boxSize={5} />
         </Flex>
       )}
-    </Box>
+    </>
   );
 };

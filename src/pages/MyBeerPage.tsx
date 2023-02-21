@@ -39,10 +39,10 @@ export const MyBeerPage: React.FC<props> = ({ myBeerList, onOpen }) => {
     );
   }
   return (
-    <Box>
+    <Flex flexWrap="wrap" columnGap={"1%"}>
       {myBeerList.map((item) => {
         return <BeerListGrid {...item} />;
       })}
-    </Box>
+    </Flex>
   );
 };
