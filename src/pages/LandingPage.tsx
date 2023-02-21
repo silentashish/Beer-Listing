@@ -12,6 +12,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { MyBeerType } from "../types";
 import { getStoredMyBeers } from "../functions";
 import { MyBeerPage } from "./MyBeerPage";
+import { AllBeerPage } from "./AllBeerPage";
 
 interface props {}
 
@@ -66,7 +67,7 @@ export const LandingPage: React.FC<props> = () => {
 
           <TabPanels>
             <TabPanel>
-              <p>one!</p>
+              <AllBeerPage />
             </TabPanel>
             <TabPanel pr={0} pl={0}>
               <MyBeerPage myBeerList={myBeerData} onOpen={onOpen} />
