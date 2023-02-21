@@ -20,3 +20,4 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 This website is hosted on Vercel and it's live
 [Click here to open Site](https://beer-listing.vercel.app)
+[Click here to open demo video](https://www.loom.com/share/82c30b9b92d64502bccfe5f069850fbe)
